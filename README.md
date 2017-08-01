@@ -8,7 +8,7 @@
 - Boot disk: 100Go
 - Attached disk: 200G
 
-![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/archi.PNG)
+![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/archi.png)
 
 ### 0- Pre-requisites  
 > Log as root on all VM and change root password `_All nodes_`  
