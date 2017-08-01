@@ -1,13 +1,13 @@
 #!/bin/ksh
 
-PATH=$(dirname $0):$PATH
+#PATH=$(dirname $0):$PATH
 
-if [[ $# -ne 1 ]]
-then
-   echo "Usage : $0 <serveur ambari>"
-   echo "initialize hadoop file tree"
-   exit 12
-fi
+#if [[ $# -ne 1 ]]
+#then
+#   echo "Usage : $0 <serveur ambari>"
+#   echo "initialize hadoop file tree"
+#   exit 12
+#fi
 
 
 # Create symbolic link ln -s /hadoop/usr/hdp/ /usr/hdp/ 
@@ -82,6 +82,7 @@ chown ambari-qa:users /hadoop/work/tmp/ambari-qa/staging
 
 cd
 cd config_host/bash
+mkdir /var/lib/ambari-agent
 cp hostname.sh /var/lib/ambari-agent
 chown ambari2 /var/lib/ambari-agent/hostname.sh
 chmod 700 /var/lib/ambari-agent/hostname.sh
