@@ -1,4 +1,4 @@
-## cdh-1-host-config
+## HDP-1-host-config
 
 > Configuration
 - 4 VMs on google compute Engine (3 VM for Hadoop Cluster and 1 VM for data backup and micro service)
