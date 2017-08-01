@@ -185,6 +185,45 @@ exit
 ``` 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+> copy scripts folder on each node  
+```sh
+gsutil cp gs://velvet-packges/config_host/* .
+```
+
+
+
+
+
+
+
+
+
+
+> Create user group and assign users to groups `_all_nodes_`
+
+```sh
+# do to the script folder
+cd
+cd scripts/bash
+
+# launght script
+bash create_folders.sh
+
+```
+socle_big_data.sh
+
 > Create user group and assign users to groups `_all_nodes_`
 
 ```sh
@@ -192,10 +231,17 @@ exit
 bash create_users_groups.sh
 cut -d: -f1 /etc/passwd
 
-``` 
+```
 
 
-fdisk -l will list all of the partitions
+
+
+
+
+
+
+
+
 
 > Check disks  `_All nodes_`  
 ```sh  
@@ -208,11 +254,6 @@ hdparm -t /dev/sda1
 # list disk
 lsblk
 ``` 
-
-> copy scripts folder on each node  
-```sh
-gsutil cp gs://velvet-packges/config_host/* .
-```
 
 > Create logical volume  
 ```sh
