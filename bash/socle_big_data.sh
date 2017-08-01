@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir -p /home/falcon
 mkdir -p /home/flume
 mkdir -p /home/hbase
