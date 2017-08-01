@@ -3,8 +3,8 @@
 groupadd hadoop
 groupadd analyst
 
-analyst -G awshdp data_tech
-analyst -G awshdp data_tech
+analyst -G analyst data_tech
+analyst -G analyst data_tech
 
 useradd -G hadoop accumulo
 useradd -G hadoop ambari2
@@ -36,3 +36,4 @@ useradd -G hadoop infra-solr
 useradd -G hadoop solr
 useradd -G hadoop smartsense
 useradd -G hadoop logsearch
+
