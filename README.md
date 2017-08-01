@@ -1,16 +1,17 @@
 ## cdh-1-host-config
 
 > Configuration
-- 3 VMs on google compute Engine
+- 4 VMs on google compute Engine (3 VM for Hadoop Cluster and 1 VM for data backup and micro service)
 - OS: CentOS 6
 - RAM: 15Go
 - CPU: 4
 - Boot disk: 100Go
 - Attached disk: 200G
 
+> Server functioonality
 ![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/archi.png)
 
-### 0- Pre-requisites  
+  
 > Log as root on all VM and change root password `_All nodes_`  
 ```sh 
 # log as root
