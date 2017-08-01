@@ -205,7 +205,7 @@ bash create_folders.sh
 ```
 
 
-> Create user group and assign users to groups `_all_nodes_`
+> Create user group and assign users to groups `_All nodes_` 
 
 ```sh
 # go to the script folder
@@ -234,7 +234,7 @@ lsblk
 ``` 
 
 
-> Create logical volume  
+> Create logical volume `_All nodes_` 
 ```sh
 # go to the script folder
 cd
@@ -245,7 +245,7 @@ bash create_lvm.sh
 
 ``` 
 
-> Create disk partition  
+> Create disk partition `_All nodes_` 
 ```sh
 # go to the script folder
 cd
@@ -260,7 +260,7 @@ bash create_partitions.sh 'no'
 
 ``` 
  
-> Create symbolic link to map partitions and services
+> Create symbolic link to map partitions and services `_All nodes_` 
 ```sh
 # go to the script folder
 cd
