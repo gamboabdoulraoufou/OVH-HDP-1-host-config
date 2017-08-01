@@ -3,8 +3,8 @@
 > Configuration
 - 3 VMs on google compute Engine
 - OS: CentOS 6
-- RAM: 7.5Go
-- CPU: 2
+- RAM: 15Go
+- CPU: 4
 - Boot disk: 100Go
 - Attached disk: 200G
 
@@ -95,7 +95,7 @@ net.ipv6.conf.all.disable_ipv6 = 1
 sysctl -p
 ``` 
 
-> Disable transparent Huge Page compaction  
+> Disable transparent Huge Page compaction `_All nodes_`   
 ```sh
 # check stétus
 cat /sys/kernel/mm/transparent_hugepage/defrag
@@ -128,6 +128,7 @@ vi /etc/hosts
 > Modify sshd_config file `_All nodes_`
 - Set PermitRootLogin to yes
 - Set PasswordAuthentication to yes
+
 ```sh
 # create a copy of sshd_config file
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
@@ -139,13 +140,13 @@ vi /etc/ssh/sshd_config
 systemctl restart  sshd.service
 ```
 
-> Create SSH key `_Master nodes (node 2 and 3 in this case) Only_`
+> Create SSH key `_Ambari server node (instance-1)_`
 
 ```sh
 ssh-keygen
 ```
 
-> Copy SSH key from master node to all slave nodes `_Master nodes (node 2 and 3 in this case) Only_`
+> Copy SSH key from ambari server to all cluster nodes `_Ambari server node (instance-1)_`
 
 ```sh
 ssh-copy-id -i /root/.ssh/id_rsa.pub root@instance-1.c.equipe-1314.internal
@@ -153,7 +154,7 @@ ssh-copy-id -i /root/.ssh/id_rsa.pub root@instance-2.c.equipe-1314.internal
 ssh-copy-id -i /root/.ssh/id_rsa.pub root@instance-3.c.equipe-1314.internal
 ```
 
-> Test ssh connexion  `_Master_node_`
+> Test ssh connexion  `_Ambari server node (instance-1)_`
 ```sh
 ssh root@instance-1.c.equipe-1314.internal
 exit
@@ -163,7 +164,7 @@ ssh root@instance-3.c.equipe-1314.internal
 exit
 ``` 
 
-> Recover sshd_config initial config `_Master nodes_`
+> Recover sshd_config initial config `_Ambari server node (instance-1)_`
 ```sh
 # Edit sshd_config file and change current configuration
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak_bis
@@ -185,63 +186,39 @@ exit
 ``` 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 > copy scripts folder on each node  
 ```sh
 gsutil cp gs://velvet-packges/config_host/* .
 ```
 
 
-
-
-
-
-
-
-
-
-> Create user group and assign users to groups `_all_nodes_`
+> Create services folder `_all_nodes_`
 
 ```sh
-# do to the script folder
+# go to the script folder
 cd
-cd scripts/bash
+cd config_host/bash
 
 # launght script
 bash create_folders.sh
 
 ```
-socle_big_data.sh
+
 
 > Create user group and assign users to groups `_all_nodes_`
 
 ```sh
+# go to the script folder
+cd
+cd config_host/bash
 
+# launght script
 bash create_users_groups.sh
+
+# 
 cut -d: -f1 /etc/passwd
 
 ```
-
-
-
-
-
-
-
-
-
-
 
 > Check disks  `_All nodes_`  
 ```sh  
@@ -251,39 +228,47 @@ df -h
 # disk I/O speed
 hdparm -t /dev/sda1
 
-# list disk
+# list disks
 lsblk
+
 ``` 
+
 
 > Create logical volume  
 ```sh
+# go to the script folder
 cd
-cd scripts/bash
+cd config_host/bash
+
+# launght script
 bash create_lvm.sh
+
 ``` 
 
 > Create disk partition  
 ```sh
+# go to the script folder
 cd
-cd scripts
+cd config_host/bash
 
-# execute this script on datanode
+# launght script
+## execute this command on datanode
 bash create_partitions.sh 'yes'
 
-# execute this script on non-datanode
+## execute this command on non-datanode
 bash create_partitions.sh 'no'
- ``` 
+
+``` 
  
 > Create symbolic link to map partitions and services
 ```sh
+# go to the script folder
 cd
-cd scripts
+cd config_host/bash
 
-# create user folders
-bash socle_big_data.sh
-
-# create 
+# launght script
 ksh init_hadoop.sh instance-1
+
 ``` 
 
 > Reboot `_All nodes_`   
