@@ -1,6 +1,6 @@
 #!/bin/ksh
 
-#PATH=$(dirname $0):$PATH
+PATH=$(dirname $0):$PATH
 
 #if [[ $# -ne 1 ]]
 #then
