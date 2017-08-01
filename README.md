@@ -174,7 +174,7 @@ mv /etc/ssh/sshd_config.bak /etc/ssh/sshd_config
 service sshd restart
 ```
 
-> Test ssh connexion again  `_Master_node_`
+> Test ssh connexion again `_Ambari server node (instance-1)_`
 ```sh
 ssh root@instance-1
 exit
@@ -186,13 +186,13 @@ exit
 ``` 
 
 
-> copy scripts folder on each node  
+> copy scripts folder on each node  `_All_nodes_`
 ```sh
 gsutil cp gs://velvet-packges/config_host/* .
 ```
 
 
-> Create services folder `_all_nodes_`
+> Create services folder `_All_nodes_`
 
 ```sh
 # go to the script folder
