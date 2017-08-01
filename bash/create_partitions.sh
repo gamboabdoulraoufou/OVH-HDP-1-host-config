@@ -18,7 +18,7 @@ mount /dev/VolGroup01/lvhadoopusr  /hadoop/usr
 
 
 if [ "$1" = "yes" ] then
-  lvcreate -L 800G -n lvhadoopdata   VolGroup01
+  lvcreate -L 100G -n lvhadoopdata   VolGroup01
   mkfs -t ext4 /dev/VolGroup01/lvhadoopdata
   mkdir -p  /hadoop/data/hdfs/01 
   mount /dev/VolGroup01/lvhadoopdata  /hadoop/data/hdfs/01
