@@ -1,7 +1,7 @@
 ## cdh-host-config
 
 > Configuration
-- 4 VMs on google compute Engine
+- 3 VMs on google compute Engine
 - OS: CentOS 7
 - RAM: 7.5Go
 - CPU: 2
