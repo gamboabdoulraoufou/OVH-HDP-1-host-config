@@ -189,7 +189,12 @@ exit
 
 > copy scripts folder on each node  `_All_nodes_`
 ```sh
-gsutil cp gs://velvet-packges/config_host/* .
+cd
+mkdir -p config_host/
+gsutil cp gs://velvet-packages-v2/hdp-installation/* .
+mv bash config_host/bash
+chmod +x config_host/bash/*
+ll config_host/bash
 ```
 
 
