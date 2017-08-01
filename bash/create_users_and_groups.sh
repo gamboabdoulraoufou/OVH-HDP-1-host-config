@@ -3,8 +3,7 @@
 groupadd hadoop
 groupadd analyst
 
-analyst -G analyst data_tech
-analyst -G analyst data_tech
+useradd -G analyst data_tech
 
 useradd -G hadoop accumulo
 useradd -G hadoop ambari2
