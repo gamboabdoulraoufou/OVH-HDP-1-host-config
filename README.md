@@ -8,7 +8,8 @@
 - Boot disk: 100Go
 - Attached disk: 200G
 
-> Server functioonality
+> Cluster model
+
 ![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/archi.png)
 
   
