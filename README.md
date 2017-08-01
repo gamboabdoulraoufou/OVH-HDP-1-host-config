@@ -8,6 +8,7 @@
 - Boot disk: 100Go
 - Attached disk: 200G
 
+![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/archi.PNG)
 
 ### 0- Pre-requisites  
 > Log as root on all VM and change root password `_All nodes_`  
@@ -273,7 +274,7 @@ cd
 cd config_host/bash
 
 # launght script
-ksh init_hadoop.sh instance-1
+ksh init_hadoop.sh
 
 ``` 
 
