@@ -19,16 +19,15 @@ sudo su - root
 passwd # set password
 ``` 
 
+
 > Update repo and install some packages `_All nodes_`  
 ```sh  
 # update
 yum -y update
 
 # install other packages
-yum -y install openssh
-yum -y install openssh-client
-yum -y install openssh-server
-yum -y install ssh 
+yum -y install openssh-server 
+yum -y install openssh-clients
 yum -y install curl 
 yum -y install wget 
 yum -y install tar 
@@ -40,26 +39,28 @@ yum -y install ksh
 yum -y install git
 ```
 
+
 > Install Java `_All nodes_`
 ```sh
 # download java
 curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie" \
-            "http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm"
             "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm"
 
 # change file right
-chmod +x jdk-8u131-linux-x64.rpm
+chmod +x jdk-8u144-linux-x64.rpm
 
 # installation
-rpm -ivh jdk-8u131-linux-x64.rpm
+rpm -ivh jdk-8u144-linux-x64.rpm
 
 # check java installation
 java -version
 
 # export Java path
-export JAVA_HOME=/usr/java/jdk1.8.0_131
+export JAVA_HOME=/usr/java/jdk1.8.0_144
 export PATH=$JAVA_HOME/bin:$PATH  
+
 ``` 
+
 
 > Reduce swappiness of the system `_All nodes_` 
 ```sh
@@ -76,8 +77,8 @@ swapon -a
 
 > Disable Firewalld `_All nodes_` 
 ```sh
-sudo systemctl stop firewalld
-sudo systemctl disable firewalld
+service stop firewalld
+systemctl disable firewalld
 
 # check firewall status
 sudo firewall-cmd --state
@@ -137,7 +138,7 @@ cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 vi /etc/ssh/sshd_config
   
 # Restart SSH daemon
-systemctl restart  sshd.service
+service sshd restart
 ```
 
 > Create SSH key `_Ambari server node (instance-1)_`
