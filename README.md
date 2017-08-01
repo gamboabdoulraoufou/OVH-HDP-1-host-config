@@ -1,12 +1,12 @@
 ## cdh-host-config
 
 > Configuration
-- 8 VMs on google compute Engine
+- 4 VMs on google compute Engine
 - OS: CentOS 7
 - RAM: 7.5Go
 - CPU: 2
 - Boot disk: 100Go
-- Attached disk: 200G (only for 4 Data Node)
+- Attached disk: 200G
 
 
 ### 0- Pre-requisites  
