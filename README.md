@@ -193,7 +193,7 @@ gsutil cp gs://velvet-packges/config_host/* .
 ```
 
 
-> Create services folder `_All_nodes_`
+> Create users and groups `_All nodes_` 
 
 ```sh
 # go to the script folder
@@ -201,12 +201,15 @@ cd
 cd config_host/bash
 
 # launght script
-bash create_folders.sh
+bash create_users_and_groups.sh
+
+# 
+cut -d: -f1 /etc/passwd
 
 ```
 
 
-> Create user group and assign users to groups `_All nodes_` 
+> Create user folders and set permissions `_All_nodes_`
 
 ```sh
 # go to the script folder
@@ -214,10 +217,7 @@ cd
 cd config_host/bash
 
 # launght script
-bash create_users_groups.sh
-
-# 
-cut -d: -f1 /etc/passwd
+bash create_folders_and_permission.sh
 
 ```
 
