@@ -2,7 +2,7 @@
 
 > Configuration
 - 3 VMs on google compute Engine
-- OS: CentOS 7
+- OS: CentOS 6
 - RAM: 7.5Go
 - CPU: 2
 - Boot disk: 100Go
@@ -45,6 +45,7 @@ yum -y install git
 # download java
 curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie" \
             "http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm"
+            "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm"
 
 # change file right
 chmod +x jdk-8u131-linux-x64.rpm
@@ -181,6 +182,17 @@ exit
 ssh root@instance-3
 exit
 
+
+> Create user group  `_all_nodes_`
+
+```sh
+bash Users_groups.sh
+$ cut -d: -f1 /etc/passwd
+
+``` 
+
+
+fdisk -l will list all of the partitions
 
 > Check disks  `_All nodes_`  
 ```sh  
