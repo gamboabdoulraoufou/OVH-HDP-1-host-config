@@ -182,12 +182,15 @@ exit
 ssh root@instance-3
 exit
 
+``` 
 
-> Create user group  `_all_nodes_`
+
+> Create user group and assign users to groups `_all_nodes_`
 
 ```sh
-bash Users_groups.sh
-$ cut -d: -f1 /etc/passwd
+
+bash create_users_groups.sh
+cut -d: -f1 /etc/passwd
 
 ``` 
 
@@ -214,7 +217,7 @@ gsutil cp gs://velvet-packges/config_host/* .
 > Create logical volume  
 ```sh
 cd
-cd scripts
+cd scripts/bash
 bash create_lvm.sh
 ``` 
 
