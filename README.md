@@ -1,4 +1,4 @@
-## cdh-host-config
+## cdh-1-host-config
 
 > Configuration
 - 3 VMs on google compute Engine
