@@ -295,8 +295,6 @@ ll /hadoop/
 
 ``` 
 
-![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/links.png)
-
 
 > Reboot `_All nodes_`   
 ```sh  
