@@ -194,7 +194,7 @@ exit
 ```sh
 cd
 mkdir -p config_host/
-gsutil cp gs://velvet-packages-v2/hdp-installation/* .
+gsutil cp -r gs://velvet-packages-v2/hdp-installation/* .
 mv bash config_host/bash
 chmod +x config_host/bash/*
 ll config_host/bash
@@ -227,6 +227,9 @@ cd config_host/bash
 # launght script
 bash create_folders_and_permission.sh
 
+# check folders and users
+ll /home
+
 ```
 
 > Check disks  `_All nodes_`  
@@ -241,6 +244,8 @@ hdparm -t /dev/sda1
 lsblk
 
 ``` 
+
+![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disks_initial_status.png)
 
 
 > Create logical volume `_All nodes_` 
