@@ -231,6 +231,7 @@ bash create_folders_and_permission.sh
 ll /home
 
 ```
+![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/scripts.png)
 
 > Check disks  `_All nodes_`  
 ```sh  
