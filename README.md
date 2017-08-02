@@ -273,8 +273,14 @@ bash create_partitions.sh 'yes'
 ## execute this command on non-datanode
 bash create_partitions.sh 'no'
 
+# check disks status
+lsblk
+
 ``` 
- 
+
+![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disks_initial_status.png)
+
+
 > Create symbolic link to map partitions and services `_All nodes_` 
 ```sh
 # go to the script folder
@@ -284,7 +290,13 @@ cd config_host/bash
 # launght script
 ksh init_hadoop.sh
 
+# check links
+ll /hadoop/
+
 ``` 
+
+![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/links.png)
+
 
 > Reboot `_All nodes_`   
 ```sh  
