@@ -82,7 +82,7 @@ chown ambari-qa:users /hadoop/work/tmp/ambari-qa/staging
 
 cd
 cd config_host/bash
-mkdir /var/lib/ambari-agent
+#mkdir /var/lib/ambari-agent
 cp hostname.sh /var/lib/ambari-agent
 chown ambari2 /var/lib/ambari-agent/hostname.sh
 chmod 700 /var/lib/ambari-agent/hostname.sh
