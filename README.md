@@ -2,7 +2,7 @@
 
 > Configuration
 - 4 VMs on google compute Engine (3 VM for Hadoop Cluster and 1 VM for data backup and micro service)
-- OS: CentOS 6
+- OS: CentOS 7
 - RAM: 15Go
 - CPU: 4
 - Boot disk: 100Go
@@ -78,16 +78,9 @@ swapoff -a
 swapon -a
 ``` 
 
-> Disable Firewalld `_All nodes_` 
-```sh
-service stop firewalld
-systemctl disable firewalld
-
-# check firewall status
-sudo firewall-cmd --state
-```
 
 > Disable IPv6 `_All nodes_` 
+
 ```sh
 # edit /etc/sysctl.conf file
 vi /etc/sysctl.conf
@@ -98,6 +91,30 @@ net.ipv6.conf.all.disable_ipv6 = 1
 # reflect the changes
 sysctl -p
 ``` 
+
+> Disable SELinux `_All nodes_` 
+
+```sh
+# edit config file
+vi /etc/selinux/config 
+
+# set this config
+SELINUX=disabled
+```
+
+> Disable firewall `_All nodes_` 
+
+```sh 
+# check firewall status
+systemctl status firewalld
+
+# disbale firewall
+systemctl stop firewalld
+
+# check firewall status
+systemctl status firewalld
+```
+
 
 > Disable transparent Huge Page compaction `_All nodes_`   
 ```sh
@@ -139,9 +156,14 @@ cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 
 # Edit sshd_config file and change current configuration
 vi /etc/ssh/sshd_config
-  
+
+# change config, save and quit
+
 # Restart SSH daemon
-service sshd restart
+/bin/systemctl restart sshd.service
+
+# check SSH daemon status
+/bin/systemctl status sshd.service
 ```
 
 > Create SSH key `_Ambari server node (instance-1)_`
@@ -168,25 +190,31 @@ ssh root@instance-3.c.equipe-1314.internal
 exit
 ``` 
 
-> Recover sshd_config initial config `_Ambari server node (instance-1)_`
+> Modify sshd_config file again `_All nodes_`
+- Set PasswordAuthentication to no
+
 ```sh
 # Edit sshd_config file and change current configuration
-cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak_bis
-mv /etc/ssh/sshd_config.bak /etc/ssh/sshd_config
-  
+vi /etc/ssh/sshd_config
+
+# change config, save and quit
+
 # Restart SSH daemon
-service sshd restart
+/bin/systemctl restart sshd.service
+
+# check SSH daemon status
+/bin/systemctl status sshd.service
 ```
 
-> Test ssh connexion again `_Ambari server node (instance-1)_`
-```sh
-ssh root@instance-1
-exit
-ssh root@instance-2
-exit
-ssh root@instance-3
-exit
 
+> Test ssh connexion  `_Ambari server node (instance-1)_`
+```sh
+ssh root@instance-1.c.equipe-1314.internal
+exit
+ssh root@instance-2.c.equipe-1314.internal
+exit
+ssh root@instance-3.c.equipe-1314.internal
+exit
 ``` 
 
 
