@@ -306,7 +306,7 @@ lsblk
 
 ``` 
 
-![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disks_initial_status.png)
+![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disks_final_status.png)
 
 
 > Create symbolic link to map partitions and services `_All nodes_` 
