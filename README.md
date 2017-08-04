@@ -40,6 +40,7 @@ yum -y install telnet-server
 yum -y install lvm2
 yum -y install ksh
 yum -y install git
+yum -y install libgc cpp gcc
 ```
 
 
