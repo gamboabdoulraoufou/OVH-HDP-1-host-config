@@ -16,6 +16,11 @@ mkfs -t ext4 /dev/VolGroup01/lvhadoopusr
 mkdir -p  /hadoop/usr
 mount /dev/VolGroup01/lvhadoopusr  /hadoop/usr
 
+lvcreate -L 20G -n lvhmysql   VolGroup01
+mkfs -t ext4 /dev/VolGroup01/lvhmysql 
+mkdir -p  /hadoop/var/lib/mysql
+mount /dev/VolGroup01/lvhmysql  /hadoop/var/lib/mysql
+
 
 if [ "$1" = "yes" ];
   then
