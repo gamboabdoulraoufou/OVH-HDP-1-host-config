@@ -163,7 +163,7 @@ systemctl status sshd.service
 ssh-keygen
 ```
 
-> Copy SSH key from ambari server to all cluster nodes `_Ambari server node (instance-1)_`
+> Copy SSH key from ambari server to all cluster nodes `_Ambari server node (hdp-1)_`
 
 ```sh
 ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-1.c.projet-ic-166005.internal
@@ -172,7 +172,7 @@ ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-3.c.projet-ic-166005.internal
 ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-4.c.projet-ic-166005.internal
 ```
 
-> Test ssh connexion  `_Ambari server node (instance-1)_`
+> Test ssh connexion  `_Ambari server node (hdp-1)_`
 ```sh
 ssh root@hdp-1.c.projet-ic-166005.internal
 exit
@@ -199,7 +199,7 @@ systemctl status sshd.service
 ```
 
 
-> Test ssh connexion  `_Ambari server node (instance-1)_`
+> Test ssh connexion  `_Ambari server node (hdp-1)_`
 ```sh
 ssh root@hdp-1.c.projet-ic-166005.internal
 exit
@@ -216,8 +216,8 @@ exit
 ```sh
 cd
 mkdir -p config_host/
-gsutil cp -r gs://velvet-packages-v2/hdp-installation/* .
-mv bash config_host/bash
+gsutil cp -r gs://velvet-packages-v3/hdp-installation/* .
+mv hdp-1-host-config/bash config_host/bash
 chmod +x config_host/bash/*
 ll config_host/bash
 ```
@@ -233,7 +233,7 @@ cd config_host/bash
 # launght script
 bash create_users_and_groups.sh
 
-# 
+# show users
 cut -d: -f1 /etc/passwd
 
 ```
@@ -282,6 +282,7 @@ bash create_lvm.sh
 
 ``` 
 
+  
 > Create disk partition `_All nodes_` 
 ```sh
 # go to the script folder
