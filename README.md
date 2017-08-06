@@ -68,11 +68,8 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 > Reduce swappiness of the system `_All nodes_` 
 ```sh
-# edit /etc/sysctl.cof file
-vi /etc/sysctl.conf
-
-# Set vm.swappiness to 10 by adding the value bellow
-vm.swappiness = 10
+# Set vm.swappiness to 10
+echo 'vm.swappiness = 10' >> /etc/sysctl.conf
 
 # initialise swap value
 swapoff -a
@@ -83,11 +80,8 @@ swapon -a
 > Disable IPv6 `_All nodes_` 
 
 ```sh
-# edit /etc/sysctl.conf file
-vi /etc/sysctl.conf
-
 # Put the following entry to disable IPv6 for all adapter
-net.ipv6.conf.all.disable_ipv6 = 1
+echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
 
 # reflect the changes
 sysctl -p
@@ -96,11 +90,8 @@ sysctl -p
 > Disable SELinux `_All nodes_` 
 
 ```sh
-# edit config file
-vi /etc/selinux/config 
+sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config 
 
-# set this config
-SELINUX=disabled
 ```
 
 > Disable firewall `_All nodes_` 
@@ -155,19 +146,18 @@ vi /etc/hosts
 # create a copy of sshd_config file
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 
-# Edit sshd_config file and change current configuration
-vi /etc/ssh/sshd_config
-
-# change config, save and quit
+# change current configuration
+sed -i -e 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config
+sed -i -e 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 
 # Restart SSH daemon
-/bin/systemctl restart sshd.service
+systemctl restart sshd.service
 
 # check SSH daemon status
-/bin/systemctl status sshd.service
+systemctl status sshd.service
 ```
 
-> Create SSH key `_Ambari server node (instance-1)_`
+> Create SSH key `_Ambari server node (hdp-1)_`
 
 ```sh
 ssh-keygen
@@ -176,18 +166,21 @@ ssh-keygen
 > Copy SSH key from ambari server to all cluster nodes `_Ambari server node (instance-1)_`
 
 ```sh
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@instance-1.c.equipe-1314.internal
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@instance-2.c.equipe-1314.internal
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@instance-3.c.equipe-1314.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-1.c.projet-ic-166005.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-2.c.projet-ic-166005.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-3.c.projet-ic-166005.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-4.c.projet-ic-166005.internal
 ```
 
 > Test ssh connexion  `_Ambari server node (instance-1)_`
 ```sh
-ssh root@instance-1.c.equipe-1314.internal
+ssh root@hdp-1.c.projet-ic-166005.internal
 exit
-ssh root@instance-2.c.equipe-1314.internal
+ssh root@hdp-2.c.projet-ic-166005.internal
 exit
-ssh root@instance-3.c.equipe-1314.internal
+ssh root@hdp-3.c.projet-ic-166005.internal
+exit
+ssh root@hdp-4.c.projet-ic-166005.internal
 exit
 ``` 
 
@@ -195,26 +188,26 @@ exit
 - Set PasswordAuthentication to no
 
 ```sh
-# Edit sshd_config file and change current configuration
-vi /etc/ssh/sshd_config
-
-# change config, save and quit
+# change current configuration
+sed -i -e 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 
 # Restart SSH daemon
-/bin/systemctl restart sshd.service
+systemctl restart sshd.service
 
 # check SSH daemon status
-/bin/systemctl status sshd.service
+systemctl status sshd.service
 ```
 
 
 > Test ssh connexion  `_Ambari server node (instance-1)_`
 ```sh
-ssh root@instance-1.c.equipe-1314.internal
+ssh root@hdp-1.c.projet-ic-166005.internal
 exit
-ssh root@instance-2.c.equipe-1314.internal
+ssh root@hdp-2.c.projet-ic-166005.internal
 exit
-ssh root@instance-3.c.equipe-1314.internal
+ssh root@hdp-3.c.projet-ic-166005.internal
+exit
+ssh root@hdp-4.c.projet-ic-166005.internal
 exit
 ``` 
 
