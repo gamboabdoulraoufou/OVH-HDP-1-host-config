@@ -2,14 +2,6 @@
 
 PATH=$(dirname $0):$PATH
 
-#if [[ $# -ne 1 ]]
-#then
-#   echo "Usage : $0 <serveur ambari>"
-#   echo "initialize hadoop file tree"
-#   exit 12
-#fi
-
-
 
 # Create symbolic link ln -s /hadoop/usr/hdp/ /usr/hdp/ 
 for c in usr/hdp
@@ -41,13 +33,6 @@ for c in \
    hbase hive hive2 hive-hcatalog kafka knox livy oozie ranger service_solr spark spark2 sqoop storm webhcat zeppelin zookeeper 
    do
       init_symlink.sh /var/log /hadoop/var/log $c
-done
-
-#### to check
-# Create symbolic link ln -s /hadoop/var/lib/mysql /var/lib/mysql
-for c in mysql
-   do
-      init_symlink.sh /var/lib/ /hadoop $c
 done
 
 
