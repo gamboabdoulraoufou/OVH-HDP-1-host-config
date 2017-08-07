@@ -3,10 +3,10 @@
 > Configuration
 - 4 VMs on google compute Engine (3 VM for Hadoop Cluster and 1 VM for data backup and micro services)
 - OS: CentOS 7
-- RAM: 20Go
-- CPU: 6
+- RAM: 15 Go
+- CPU: 4
 - Boot disk: 200Go
-- Attached disk: 2500G
+- Attached disk: 2000G
 
 > Cluster model
 
@@ -225,13 +225,13 @@ vgcreate VolGroup01 /dev/sdb
 > Partitione sdb disk `_All nodes_` 
 ```sh
 # var partition for log data
-lvcreate -L 300G -n lvhadoopvar   VolGroup01
+lvcreate -L 200G -n lvhadoopvar   VolGroup01
 mkfs -t ext4 /dev/VolGroup01/lvhadoopvar 
 mkdir -p  /hadoop/var
 mount /dev/VolGroup01/lvhadoopvar  /hadoop/var
 
 # work partition for tmp storage
-lvcreate -L 200G -n lvhadoopwork   VolGroup01
+lvcreate -L 100G -n lvhadoopwork   VolGroup01
 mkfs -t ext4 /dev/VolGroup01/lvhadoopwork 
 mkdir -p  /hadoop/work
 mount /dev/VolGroup01/lvhadoopwork  /hadoop/work
@@ -243,7 +243,7 @@ mkdir -p  /hadoop/usr
 mount /dev/VolGroup01/lvhadoopusr  /hadoop/usr
 
 # HDFS partition for storage
-lvcreate -L 1800G -n lvhadoopdata   VolGroup01
+lvcreate -L 1500G -n lvhadoopdata   VolGroup01
 mkfs -t ext4 /dev/VolGroup01/lvhadoopdata
 mkdir -p  /hadoop/data/hdfs/01
 mount /dev/VolGroup01/lvhadoopdata  /hadoop/data/hdfs/01
