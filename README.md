@@ -197,49 +197,6 @@ exit
 ``` 
 
 
-> copy scripts folder on each node  `_All_nodes_`
-```sh
-cd
-mkdir -p config_host/
-gsutil cp -r gs://velvet-packages-v3/hdp-installation/* .
-mv hdp-1-host-config/bash config_host/bash
-chmod +x config_host/bash/*
-ll config_host/bash
-```
-
-
-> Create users and groups `_All nodes_` 
-
-```sh
-# go to the script folder
-cd
-cd config_host/bash
-
-# launght script
-bash create_users_and_groups.sh
-
-# show users
-cut -d: -f1 /etc/passwd
-
-```
-
-
-> Create user folders and set permissions `_All_nodes_`
-
-```sh
-# go to the script folder
-cd
-cd config_host/bash
-
-# launght script
-bash create_folders_and_permission.sh
-
-# check folders and users
-ll /home
-
-```
-![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/scripts.png)
-
 > Check disks  `_All nodes_`  
 ```sh  
 # disk conf
@@ -253,56 +210,52 @@ lsblk
 
 ``` 
 
-![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disks_initial_status.png)
+Your should see something like this
 
+![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disk_status.png)
 
 > Create logical volume `_All nodes_` 
 ```sh
-# go to the script folder
-cd
-cd config_host/bash
-
-# launght script
-bash create_lvm.sh
+pvcreate /dev/sdb
+vgcreate VolGroup01 /dev/sdb
 
 ``` 
 
   
-> Create disk partition `_All nodes_` 
+> Partitione sdb disk `_All nodes_` 
 ```sh
-# go to the script folder
-cd
-cd config_host/bash
+# var partition for log data
+lvcreate -L 300G -n lvhadoopvar   VolGroup01
+mkfs -t ext4 /dev/VolGroup01/lvhadoopvar 
+mkdir -p  /hadoop/var
+mount /dev/VolGroup01/lvhadoopvar  /hadoop/var
 
-# launght script
-## execute this command on datanode
-bash create_partitions.sh 'yes'
+# work partition for tmp storage
+lvcreate -L 200G -n lvhadoopwork   VolGroup01
+mkfs -t ext4 /dev/VolGroup01/lvhadoopwork 
+mkdir -p  /hadoop/work
+mount /dev/VolGroup01/lvhadoopwork  /hadoop/work
 
-## execute this command on non-datanode
-bash create_partitions.sh 'no'
+# usr partition code 
+lvcreate -L 100G -n lvhadoopusr   VolGroup01
+mkfs -t ext4 /dev/VolGroup01/lvhadoopusr 
+mkdir -p  /hadoop/usr
+mount /dev/VolGroup01/lvhadoopusr  /hadoop/usr
 
-# check disks status
+# HDFS partition for storage
+lvcreate -L 1800G -n lvhadoopdata   VolGroup01
+mkfs -t ext4 /dev/VolGroup01/lvhadoopdata
+mkdir -p  /hadoop/data/hdfs/01
+mount /dev/VolGroup01/lvhadoopdata  /hadoop/data/hdfs/01
+
+# check partitions
 lsblk
 
 ``` 
 
 ![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disks_final_status.png)
 
-
-> Create symbolic link to map partitions and services `_All nodes_` 
-```sh
-# go to the script folder
-cd
-cd config_host/bash
-
-# launght script
-ksh init_hadoop.sh
-
-# check links
-ll /hadoop/
-
-``` 
-
+ 
 
 > Reboot `_All nodes_`   
 ```sh  
