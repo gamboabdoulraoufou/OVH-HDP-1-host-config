@@ -1,16 +1,16 @@
 ## HDP-1-host-config
 
 > Configuration
-- 4 VMs on google compute Engine (3 VM for Hadoop Cluster and 1 VM for data backup and micro service)
+- 4 VMs on google compute Engine (3 VM for Hadoop Cluster and 1 VM for data backup and micro services)
 - OS: CentOS 7
-- RAM: 15Go
-- CPU: 4
-- Boot disk: 100Go
-- Attached disk: 200G
+- RAM: 20Go
+- CPU: 6
+- Boot disk: 200Go
+- Attached disk: 2500G
 
 > Cluster model
 
-![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/archi.png)
+![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/archi_v2.png)
 
   
 > Log as root on all VM and change root password `_All nodes_`  
