@@ -94,20 +94,6 @@ sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
 ```
 
-> Disable firewall `_All nodes_` 
-
-```sh 
-# check firewall status
-systemctl status firewalld
-
-# disbale firewall
-systemctl stop firewalld
-
-# check firewall status
-systemctl status firewalld
-```
-
-
 > Disable transparent Huge Page compaction `_All nodes_`   
 ```sh
 # check stétus
@@ -169,7 +155,6 @@ ssh-keygen
 ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-1.c.projet-ic-166005.internal
 ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-2.c.projet-ic-166005.internal
 ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-3.c.projet-ic-166005.internal
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-4.c.projet-ic-166005.internal
 ```
 
 > Test ssh connexion  `_Ambari server node (hdp-1)_`
@@ -322,4 +307,17 @@ ll /hadoop/
 > Reboot `_All nodes_`   
 ```sh  
 reboot
-``` 
+```
+
+> Disable firewall `_All nodes_` 
+
+```sh 
+# check firewall status
+systemctl status firewalld
+
+# disbale firewall
+systemctl stop firewalld
+
+# check firewall status
+systemctl status firewalld
+```
