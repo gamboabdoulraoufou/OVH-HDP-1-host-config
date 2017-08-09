@@ -76,6 +76,55 @@ swapoff -a
 swapon -a
 ``` 
 
+> Enable NTP on the Cluster `_All nodes_` 
+
+```sh
+# install
+yum -y install ntp
+
+# check status
+systemctl is-enabled ntpd
+
+# set the NTP service to auto-start on boot
+systemctl enable ntpd
+
+# start ntp
+systemctl start ntpd
+
+# check ntp status
+systemctl status ntpd
+
+```
+
+
+> Set-up FQDN `_All nodes_` 
+
+```sh
+# edit hosts file
+vi /etc/hosts
+
+# add your IP and FQDN. e.g:
+145.239.155.75 hdp-1 hdp-1
+
+# edit hostname file
+vi /etc/hostname
+
+# add your hostname
+hdp-1
+
+# check hostname
+hostname -f
+```
+
+
+> Configure iptables `_All nodes_` 
+
+```sh
+systemctl disable firewalld
+systemctl stop  firewalld
+
+```
+
 
 > Disable IPv6 `_All nodes_` 
 
@@ -87,21 +136,30 @@ echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
 sysctl -p
 ``` 
 
-> Disable SELinux `_All nodes_` 
+
+> Disable SELinux, PackageKit and Check umask Value `_All nodes_` 
 
 ```sh
+# desable SELinux
 sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config 
 
+# disable packageKit is not enabled by default
+echo "enabled=0" >> /etc/yum/pluginconf.d/refresh-packagekit.conf
+
+# set UMASK value
+umask 0022
 ```
+
 
 > Disable transparent Huge Page compaction `_All nodes_`   
 ```sh
-# check stétus
+# check status
 cat /sys/kernel/mm/transparent_hugepage/defrag
 
 # disable
 echo never > /sys/kernel/mm/transparent_hugepage/defrag
 ``` 
+
 
 > Set Open File Descriptors to 10000 if the current value is less that 10000 `_All nodes_`  
 ```sh
@@ -110,19 +168,24 @@ ulimit -Hn
 ulimit -n 10000
 ```
 
-> Change hosts file `_All nodes_`
+
+> Change hosts file to add other nodes `_All nodes_`
   Add all cluster host according to the example bellow
 ```sh
 Example:
-127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
-::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-10.132.0.22 instance-2.c.equipe-1314.internal instance-2  # Added by Google
-169.254.169.254 metadata.google.internal  # Added by Google 
+::1     localhost       localhost.localdomain   localhost6      localhost6.localdomain6
+127.0.0.1       localhost       localhost.localdomain   localhost4      localhost4.localdomain4
+#127.0.0.1      hdp-1.localdomain       hdp-1
+145.239.155.75 hdp-1 hdp-1
+145.239.155.75 hdp-1
+145.239.155.76 hdp-2
+145.239.155.78 hdp-3
 ```
 
 ```sh  
 vi /etc/hosts
 ``` 
+
 
 > Modify sshd_config file `_All nodes_`
 - Set PermitRootLogin to yes
@@ -157,32 +220,6 @@ ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-2.c.projet-ic-166005.internal
 ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-3.c.projet-ic-166005.internal
 ```
 
-> Test ssh connexion  `_Ambari server node (hdp-1)_`
-```sh
-ssh root@hdp-1.c.projet-ic-166005.internal
-exit
-ssh root@hdp-2.c.projet-ic-166005.internal
-exit
-ssh root@hdp-3.c.projet-ic-166005.internal
-exit
-ssh root@hdp-4.c.projet-ic-166005.internal
-exit
-``` 
-
-> Modify sshd_config file again `_All nodes_`
-- Set PasswordAuthentication to no
-
-```sh
-# change current configuration
-sed -i -e 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
-
-# Restart SSH daemon
-systemctl restart sshd.service
-
-# check SSH daemon status
-systemctl status sshd.service
-```
-
 
 > Test ssh connexion  `_Ambari server node (hdp-1)_`
 ```sh
@@ -191,8 +228,6 @@ exit
 ssh root@hdp-2.c.projet-ic-166005.internal
 exit
 ssh root@hdp-3.c.projet-ic-166005.internal
-exit
-ssh root@hdp-4.c.projet-ic-166005.internal
 exit
 ``` 
 
@@ -260,17 +295,4 @@ lsblk
 > Reboot `_All nodes_`   
 ```sh  
 reboot
-```
-
-> Disable firewall `_All nodes_` 
-
-```sh 
-# check firewall status
-systemctl status firewalld
-
-# disbale firewall
-systemctl stop firewalld
-
-# check firewall status
-systemctl status firewalld
 ```
