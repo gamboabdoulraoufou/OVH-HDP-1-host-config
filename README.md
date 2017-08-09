@@ -232,6 +232,32 @@ exit
 ``` 
 
 
+> Modify sshd_config file `_All nodes_`
+- Set PermitRootLogin to yes
+- Set PasswordAuthentication to yes
+
+```sh
+# change current configuration
+sed -i -e 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+
+# Restart SSH daemon
+systemctl restart sshd.service
+
+# check SSH daemon status
+systemctl status sshd.service
+```
+
+> Test ssh connexion  `_Ambari server node (hdp-1)_`
+```sh
+ssh root@hdp-1.c.projet-ic-166005.internal
+exit
+ssh root@hdp-2.c.projet-ic-166005.internal
+exit
+ssh root@hdp-3.c.projet-ic-166005.internal
+exit
+```
+
+
 > Check disks  `_All nodes_`  
 ```sh  
 # disk conf
