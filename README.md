@@ -342,8 +342,12 @@ lsblk
 
 ![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disks_final_status2.png)
 
+> Create symbolic link to map partitions
 
 ```sh
+# create init_symlink.sh file
+
+cat <<EOF | tee init_symlink.sh
 #!/bin/ksh
 
 function create_link {
@@ -382,10 +386,11 @@ for c in $(echo "$les_chemins" | sed 's@,@ @g')
     do
        create_link $source $cible $c
     done
- 
-```
 
-```sh
+EOF
+
+# create init_hadoop.sh file
+cat <<EOF | tee init_hadoop.sh
 #!/bin/ksh 
 for c in usr/hdp
 	   do
@@ -415,11 +420,15 @@ for c in ambari-agent ambari-metrics-collector ambari-metrics-monitor ambari-ser
 	   do
 	      init_symlink.sh /var/lib /hadoop/var/lib $c
 	done
+
+EOF
+
+# run created script to init symbolic link
+ksh init_hadoop.sh
+
+# check symbilic link
 ```
 
-```sh 
-ksh init_hadoop.sh
-```
 
 > Reboot `_All nodes_`   
 ```sh  
