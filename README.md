@@ -417,6 +417,9 @@ for c in ambari-agent ambari-metrics-collector ambari-metrics-monitor ambari-ser
 	done
 ```
 
+```sh 
+ksh init_hadoop.sh
+```
 
 > Reboot `_All nodes_`   
 ```sh  
