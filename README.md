@@ -117,12 +117,37 @@ hostname -f
 ```
 
 
-> Configure iptables `_All nodes_` 
+> Configure firewall `_All nodes_` 
+My VMs have 2 network interface (eth0 and eth1). The eth1 interface is my VLAN network.
 
 ```sh
-systemctl disable firewalld
-systemctl stop  firewalld
+# check firewall status (is should be running)
+firewall-cmd --state
 
+# if firewall is not running, run this command
+systemctl enable firewalld
+
+# list all zones details
+firewall-cmd --list-all-zones
+
+# check interface zones
+firewall-cmd --get-active-zones
+
+# move eth1 to internal zone and eth0 to public zone
+firewall-cmd --zone=internal --change-interface=eth1
+firewall-cmd --zone=public --change-interface=eth0
+
+# check active zone
+firewall-cmd --get-active-zones
+
+# enable hadoop port
+firewall-cmd --permanent --zone=internal --add-port 1-9999/tcp
+
+# list all zones details
+firewall-cmd --list-all-zones
+
+# reboot to apply change
+reboot
 ```
 
 
