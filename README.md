@@ -345,9 +345,12 @@ lsblk
 > Create symbolic link to map partitions
 
 ```sh
-# create init_symlink.sh file
 
-cat <<EOF | tee init_symlink.sh
+# create init_symlink.sh file
+vi init_symlink.sh
+
+# add the following content
+#### START FILE ####
 #!/bin/ksh
 
 function create_link {
@@ -387,11 +390,19 @@ for c in $(echo "$les_chemins" | sed 's@,@ @g')
        create_link $source $cible $c
     done
 
-EOF
+#### END FILE ####
+
+# save nd quit
 
 # create init_hadoop.sh file
-cat <<EOF | tee init_hadoop.sh
+vi init_hadoop.sh
+
+# add the following lines
+#### FILE START ###
 #!/bin/ksh 
+
+PATH=$(dirname $0):$PATH
+
 for c in usr/hdp
 	   do
 	      init_symlink.sh / /hadoop $c
@@ -421,12 +432,18 @@ for c in ambari-agent ambari-metrics-collector ambari-metrics-monitor ambari-ser
 	      init_symlink.sh /var/lib /hadoop/var/lib $c
 	done
 
-EOF
+#### FILE END ###
+
+# save an quit
 
 # run created script to init symbolic link
+chmod +x init_symlink.sh
+chmod +x init_hadoop.sh
+
 ksh init_hadoop.sh
 
 # check symbilic link
+ll /var/log/hadoop-yarn
 ```
 
 
