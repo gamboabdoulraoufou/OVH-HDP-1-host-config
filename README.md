@@ -342,7 +342,38 @@ lsblk
 
 ![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disks_final_status2.png)
 
- 
+
+```sh
+for c in usr/hdp
+	   do
+	      init_symlink.sh / /hadoop $c
+	done
+
+
+for c in falcon hdfs mapreduce oozie storm yarn zookeeper 
+	   do
+	      init_symlink.sh /hadoop /hadoop/work $c
+	done
+
+
+for c in \
+	   accumulo ambari-agent ambari-infra-solr ambari-logsearch-logfeeder ambari-logsearch-portal ambari-metrics-collector \
+ambari-infra-solr-client ambari-metrics-grafana ambari-metrics-monitor ambari-server atlas falcon flume hadoop hadoop-mapreduce hadoop-yarn \
+	   hadoop hadoop-mapreduce hadoop-yarn \
+hbase hive hive2 hive-hcatalog kafka knox livy oozie ranger service_solr spark spark2 sqoop storm webhcat zeppelin zookeeper 
+	   do
+	      init_symlink.sh /var/log /hadoop/var/log $c
+	done
+
+
+for c in ambari-agent ambari-metrics-collector ambari-metrics-monitor ambari-server \
+	   atlas flume hadoop-hdfs hadoop-mapreduce hadoop-yarn hive hive2 knox oozie ranger \
+	   slider smartsense spark spark2
+	   do
+	      init_symlink.sh /var/lib /hadoop/var/lib $c
+	done
+```
+
 
 > Reboot `_All nodes_`   
 ```sh  
