@@ -142,6 +142,7 @@ firewall-cmd --get-active-zones
 
 # enable hadoop port
 firewall-cmd --permanent --zone=internal --add-port 1-9999/tcp
+firewall-cmd --permanent --zone=public --add-port 8080/tcp
 
 # reboot to apply change
 reboot
