@@ -348,7 +348,7 @@ lsblk
 
 ``` sh
 # edit crontab file
-vi crontab -e 
+crontab -e 
 
 # add theses lines
 #### START ####
