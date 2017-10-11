@@ -343,6 +343,26 @@ lsblk
 
 ![MetaStore remote database](https://github.com/gamboabdoulraoufou/hdp-1-host-config/blob/master/img/disks_final_status2.png)
 
+
+> Configure crontab to mount partition after reboot
+
+``` sh
+# edit crontab file
+vi crontab -e 
+
+# add theses lines
+#### START ####
+# mount partition after reboot
+@reboot sudo mount /dev/VolGroup01/lvhadoopvar  /hadoop/var
+@reboot sudo mount /dev/VolGroup01/lvhadoopwork  /hadoop/work
+@reboot sudo mount /dev/VolGroup01/lvhadoopusr  /hadoop/usr
+@reboot sudo mount /dev/VolGroup01/lvhadoopdata  /hadoop/data/hdfs/01
+#### END ####
+
+# save and quit
+``` 
+
+
 > Create symbolic link to map partitions
 
 ```sh
