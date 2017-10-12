@@ -96,6 +96,18 @@ systemctl status ntpd
 
 ```
 
+> Configure crontab to start ntp after reboot
+
+```sh
+# edit crontab
+crontab -e
+
+# add the following lines
+#### START ####
+# start ntp
+@reboot sudo systemctl start ntpd
+#### END ####
+```
 
 > Set-up FQDN `_All nodes_` 
 
@@ -111,6 +123,9 @@ vi /etc/hostname
 
 # add your hostname
 hdp-1
+
+# restart 
+systemctl restart systemd-hostnamed
 
 # check hostname
 hostname -f
@@ -200,8 +215,8 @@ ulimit -n 10000
   Add all cluster host according to the example bellow
 ```sh
 Example:
-::1     localhost       localhost.localdomain   localhost6      localhost6.localdomain6
-127.0.0.1       localhost       localhost.localdomain   localhost4      localhost4.localdomain4
+#::1     localhost       localhost.localdomain   localhost6      localhost6.localdomain6
+#127.0.0.1       localhost       localhost.localdomain   localhost4      localhost4.localdomain4
 #127.0.0.1      hdp-1.localdomain       hdp-1
 145.239.155.75 hdp-1 hdp-1
 145.239.155.75 hdp-1
