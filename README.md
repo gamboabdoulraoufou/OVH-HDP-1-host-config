@@ -116,7 +116,9 @@ crontab -e
 vi /etc/hosts
 
 # add your IP and FQDN. e.g:
-145.239.155.75 hdp-1 hdp-1
+192.168.0.92    hdp-pre-prod-1  hdp-pre-prod-1
+192.168.0.177   hdp-pre-prod-2  hdp-pre-prod-2
+192.168.0.178   hdp-pre-prod-3  hdp-pre-prod-3
 
 # edit hostname file
 vi /etc/hostname
@@ -156,11 +158,11 @@ firewall-cmd --zone=public --change-interface=eth0
 firewall-cmd --get-active-zones
 
 # enable hadoop port
-firewall-cmd --permanent --zone=internal --add-port 1-9999/tcp
+firewall-cmd --permanent --zone=internal --add-port 1-65535/tcp
 firewall-cmd --permanent --zone=public --add-port 8080/tcp
 
 # reboot to apply change
-reboot
+systemctl restart firewalld
 
 # list all zones details
 firewall-cmd --list-all-zones
