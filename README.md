@@ -124,7 +124,7 @@ vi /etc/hosts
 vi /etc/hostname
 
 # add your hostname
-hdp-1
+hdp-pre-prod-1
 
 # restart 
 systemctl restart systemd-hostnamed
