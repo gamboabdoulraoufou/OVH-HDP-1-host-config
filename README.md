@@ -163,7 +163,8 @@ firewall-cmd --permanent --zone=public --add-port 8080/tcp
 firewall-cmd --permanent --zone=public --add-port 8000/tcp
 firewall-cmd --permanent --zone=public --add-port 8088/tcp
 firewall-cmd --permanent --zone=public --add-port 18080/tcp
-firewall-cmd --permanent --zone=public --add-port 9083/tcp
+firewall-cmd --permanent --zone=public --add-port 9084/tcp
+
 
 # reboot to apply change
 systemctl restart firewalld
