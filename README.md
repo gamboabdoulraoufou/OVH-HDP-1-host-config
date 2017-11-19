@@ -264,19 +264,19 @@ ssh-keygen
 > Copy SSH key from ambari server to all cluster nodes `_Ambari server node (hdp-1)_`
 
 ```sh
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-1.c.projet-ic-166005.internal
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-2.c.projet-ic-166005.internal
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@hdp-3.c.projet-ic-166005.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-1.c.equipe-1314.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-2.c.equipe-1314.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-3.c.equipe-1314.internal
 ```
 
 
 > Test ssh connexion  `_Ambari server node (hdp-1)_`
 ```sh
-ssh root@hdp-1.c.projet-ic-166005.internal
+ssh root@poc-stream-1.c.equipe-1314.internal
 exit
-ssh root@hdp-2.c.projet-ic-166005.internal
+ssh root@poc-stream-2.c.equipe-1314.internal
 exit
-ssh root@hdp-3.c.projet-ic-166005.internal
+ssh root@poc-stream-3.c.equipe-1314.internal
 exit
 ``` 
 
@@ -335,25 +335,25 @@ vgcreate VolGroup01 /dev/sdb
 > Partitione sdb disk `_All nodes_` 
 ```sh
 # var partition for log data
-lvcreate -L 200G -n lvhadoopvar   VolGroup01
+lvcreate -L 20G -n lvhadoopvar   VolGroup01
 mkfs -t ext4 /dev/VolGroup01/lvhadoopvar 
 mkdir -p  /hadoop/var
 mount /dev/VolGroup01/lvhadoopvar  /hadoop/var
 
 # work partition for tmp storage
-lvcreate -L 100G -n lvhadoopwork   VolGroup01
+lvcreate -L 20G -n lvhadoopwork   VolGroup01
 mkfs -t ext4 /dev/VolGroup01/lvhadoopwork 
 mkdir -p  /hadoop/work
 mount /dev/VolGroup01/lvhadoopwork  /hadoop/work
 
 # usr partition code 
-lvcreate -L 100G -n lvhadoopusr   VolGroup01
+lvcreate -L 20G -n lvhadoopusr   VolGroup01
 mkfs -t ext4 /dev/VolGroup01/lvhadoopusr 
 mkdir -p  /hadoop/usr
 mount /dev/VolGroup01/lvhadoopusr  /hadoop/usr
 
 # HDFS partition for storage
-lvcreate -L 1500G -n lvhadoopdata   VolGroup01
+lvcreate -L 130G -n lvhadoopdata   VolGroup01
 mkfs -t ext4 /dev/VolGroup01/lvhadoopdata
 mkdir -p  /hadoop/data/hdfs/01
 mount /dev/VolGroup01/lvhadoopdata  /hadoop/data/hdfs/01
