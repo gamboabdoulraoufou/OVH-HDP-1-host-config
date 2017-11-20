@@ -264,19 +264,19 @@ ssh-keygen
 > Copy SSH key from ambari server to all cluster nodes `_Ambari server node (hdp-1)_`
 
 ```sh
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-1.c.equipe-1314.internal
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-2.c.equipe-1314.internal
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-3.c.equipe-1314.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-processing-1.c.equipe-1314.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-processing-2.c.equipe-1314.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-processing-3.c.equipe-1314.internal
 ```
 
 
 > Test ssh connexion  `_Ambari server node (hdp-1)_`
 ```sh
-ssh root@poc-stream-1.c.equipe-1314.internal
+ssh root@poc-stream-processing-1.c.equipe-1314.internal
 exit
-ssh root@poc-stream-2.c.equipe-1314.internal
+ssh root@poc-stream-processing-2.c.equipe-1314.internal
 exit
-ssh root@poc-stream-3.c.equipe-1314.internal
+ssh root@poc-stream-processing-3.c.equipe-1314.internal
 exit
 ``` 
 
@@ -298,11 +298,11 @@ systemctl status sshd.service
 
 > Test ssh connexion  `_Ambari server node (hdp-1)_`
 ```sh
-ssh root@hdp-1.c.projet-ic-166005.internal
+ssh root@poc-stream-processing-1.c.equipe-1314.internal
 exit
-ssh root@hdp-2.c.projet-ic-166005.internal
+ssh root@poc-stream-processing-2.c.equipe-1314.internal
 exit
-ssh root@hdp-3.c.projet-ic-166005.internal
+ssh root@poc-stream-processing-3.c.equipe-1314.internal
 exit
 ```
 
