@@ -48,19 +48,19 @@ yum -y install libgc cpp gcc
 ```sh
 # download java
 curl -LO -H "Cookie: oraclelicense=accept-securebackup-cookie" \
-	"http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-linux-x64.rpm"
+"http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-linux-x64.rpm"
 
 # change file right
-chmod +x jdk-8u151-linux-x64.rpm
+chmod +x jdk-8u152-linux-x64.rpm
 
 # installation
-rpm -ivh jdk-8u151-linux-x64.rpm
+rpm -ivh jdk-8u152-linux-x64.rpm
 
 # check java installation
 java -version
 
 # export Java path
-export JAVA_HOME=/usr/java/jdk1.8.0_144
+export JAVA_HOME=/usr/java/jdk1.8.0_152
 export PATH=$JAVA_HOME/bin:$PATH  
 
 ``` 
@@ -165,6 +165,8 @@ firewall-cmd --permanent --zone=public --add-port 8088/tcp
 firewall-cmd --permanent --zone=public --add-port 18080/tcp
 firewall-cmd --permanent --zone=public --add-port 9084/tcp
 
+firewall-cmd --permanent --zone=trusted --add-port 1-65535/tcp
+
 
 # reboot to apply change
 systemctl restart firewalld
@@ -264,19 +266,19 @@ ssh-keygen
 > Copy SSH key from ambari server to all cluster nodes `_Ambari server node (hdp-1)_`
 
 ```sh
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-processing-1.c.equipe-1314.internal
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-processing-2.c.equipe-1314.internal
-ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-stream-processing-3.c.equipe-1314.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-hdp-1.c.equipe-1314.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-hdp-2.c.equipe-1314.internal
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@poc-hdp-3.c.equipe-1314.internal
 ```
 
 
 > Test ssh connexion  `_Ambari server node (hdp-1)_`
 ```sh
-ssh root@poc-stream-processing-1.c.equipe-1314.internal
+ssh root@poc-hdp-1.c.equipe-1314.internal
 exit
-ssh root@poc-stream-processing-2.c.equipe-1314.internal
+ssh root@poc-hdp-2.c.equipe-1314.internal
 exit
-ssh root@poc-stream-processing-3.c.equipe-1314.internal
+ssh root@poc-hdp-3.c.equipe-1314.internal
 exit
 ``` 
 
@@ -298,11 +300,11 @@ systemctl status sshd.service
 
 > Test ssh connexion  `_Ambari server node (hdp-1)_`
 ```sh
-ssh root@poc-stream-processing-1.c.equipe-1314.internal
+ssh root@poc-hdp-1.c.equipe-1314.internal
 exit
-ssh root@poc-stream-processing-2.c.equipe-1314.internal
+ssh root@poc-hdp-2.c.equipe-1314.internal
 exit
-ssh root@poc-stream-processing-3.c.equipe-1314.internal
+ssh root@poc-hdp-3.c.equipe-1314.internal
 exit
 ```
 
